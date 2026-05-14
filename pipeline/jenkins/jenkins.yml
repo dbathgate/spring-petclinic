@@ -1,0 +1,24 @@
+jenkins:
+  securityRealm:
+    local:
+      users:
+      - id: admin
+        password: admin
+
+jobs:
+- script: >
+    pipelineJob('petclinic') {
+      definition {
+        cpsScm {
+          scm {
+            git {
+              remote { 
+                url('https://github.com/dbathgate/spring-petclinic.git') 
+              }
+              branches('*/main')
+            }
+          }
+          scriptPath('Jenkinsfile')
+        }
+      }
+    }
